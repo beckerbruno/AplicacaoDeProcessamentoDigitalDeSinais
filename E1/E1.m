@@ -40,19 +40,17 @@ fprintf('O sistema pode ser classificado como um filtro PASSA-BAIXAS.\n\n');
 % Fs ajusta o eixo para a frequência em Hz 
 fvtool(b, a, 'Fs', fa);
 
-% intervalo de -96 kHz a 96 kHz, quando f_a=48kHz
-% resposta em frequência de -2*fa a 2*fa.
-
 %% --- Atividade Prática (c): Ganho em Frequências Específicas ---
 fprintf('--- Atividade (c): Ganho em Frequências Específicas ---\n');
 freqs_hz = [0, 6000, 24000, 48000]; % Frequências em Hz (DC, 6kHz, 24kHz, 48kHz)
 
-% freqz: calcula a resposta em frequência nos pontos desejados
+% freqz: calcula a resposta em frequência nos pontos
 H = freqz(b, a, freqs_hz, fa);
 
-% Converte o módulo para dB e a fase para graus
+% fase de radianos para graus
+fase_graus = angle(H) * (180 / pi); 
+
 ganho_mag_linear = abs(H);
-fase_graus = rad2deg(angle(H));
 
 % Exibe os resultados em uma tabela
 fprintf('Frequência (Hz) | Ganho (Linear) | Fase (Graus)\n');
@@ -64,17 +62,12 @@ fprintf('\nEstes valores podem ser comparados com a análise teórica e com os p
 
 %% --- Atividade Prática (d): Filtragem de um Sinal Senoidal ---
 fprintf('--- Atividade (d): Filtragem de um Seno de 6 kHz ---\n');
-
-% Criação do sinal de entrada
-f_sinal = 6000; % Frequência do seno: 6 kHz 
-duracao = 0.002;
-t = 0 : 1/fa : duracao - 1/fa; % Vetor de tempo
-x_sinal = sin(2*pi*f_sinal*t); % Sinal de entrada senoidal
-
-% Filtragem do sinal utilizando a função 'filter' [cite: 45]
+f_sinal = 6000; % Frequência do seno: 6 kHz
+duracao = 0.002; % Duração do sinal: 2 ms
+t = 0 : 1/fa : duracao - 1/fa;
+x_sinal = sin(2*pi*f_sinal*t);
 y_sinal_filtrado = filter(b, a, x_sinal);
 
-% Plotagem dos sinais de entrada e saída
 figure('Name', 'Atividade (d): Filtragem de Sinal');
 plot(t * 1000, x_sinal, 'b-', 'LineWidth', 1, 'DisplayName', 'Sinal de Entrada x[n]');
 hold on;
@@ -87,9 +80,7 @@ legend('show');
 grid on;
 fprintf('Gráfico com os sinais de entrada e saída foi gerado para análise.\n');
 
-% Ganho em regime permanente
-% Pegamos a amplitude máxima na segunda metade do sinal para ignorar o transiente inicial
-amp_entrada = max(x_sinal); % Amplitude da entrada é 1
+amp_entrada = max(x_sinal);
 amp_saida = max(y_sinal_filtrado(t >= duracao/2));
 ganho_medido = amp_saida / amp_entrada;
 
