@@ -1,42 +1,29 @@
-% Aplicacoes de Processamento Digital de Sinais - 4456S-04
-% Experi�ncia E4: Conversao A/D 
-% Prof. Denis Fernandes 
-% Ultima atualizacao: 27/03/2019
-
-function []=FuncaoE4();
+function []=FuncaoE4()
 
 global ARec;
-global h1 yh1 NSAMPLES h2 yh2;
+global h1 yh1 NSAMPLES;
+global h2 yh2;
 
-while ARec.TotalSamples < NSAMPLES
-end;
 myRec = getaudiodata(ARec);
+if length(myRec) < NSAMPLES
+    return;
+end
 
-% atualiza oscilograma
 yh1 = myRec(end-NSAMPLES+1:end);
-refreshdata(h1);
+refreshdata(h1, 'caller');
 
-% atualiza espectro
-%************************************************************
-% FFT do bloco de amostras
-Y_fft = fft(yh1, NSAMPLES); 
-% Magnitude do espectro
-P2 = abs(Y_fft / NSAMPLES); 
-% Primeira metade - de 0 a fa/2
+Y_fft = fft(yh1, NSAMPLES);
+P2 = abs(Y_fft / NSAMPLES);
 P1 = P2(1:NSAMPLES/2);
-% 2x compensa a energia da metade descartada
-P1(2:end-1) = 2*P1(2:end-1); 
+P1(2:end-1) = 2*P1(2:end-1);
 
-% Normaliza a magnitude, valor máximo unitário 
 max_P1 = max(P1);
-yh2 = P1 / max_P1;
-%************************************************************
-% Atualiza o gráfico do espectro
+if max_P1 > 0
+    yh2 = P1 / max_P1;
+else
+    yh2 = P1;
+end
+
 refreshdata(h2, 'caller');
 
 end
-
-
-
-
-
