@@ -18,22 +18,18 @@ refreshdata(h1);
 
 % atualiza espectro
 %************************************************************
-% Calcula a FFT do bloco de amostras
+% FFT do bloco de amostras
 Y_fft = fft(yh1, NSAMPLES); 
-% Calcula a magnitude do espectro
+% Magnitude do espectro
 P2 = abs(Y_fft / NSAMPLES); 
-% Pega apenas a primeira metade do espectro (de 0 a fa/2)
+% Primeira metade - de 0 a fa/2
 P1 = P2(1:NSAMPLES/2);
-% Multiplica por 2 para compensar a energia da metade descartada
+% 2x compensa a energia da metade descartada
 P1(2:end-1) = 2*P1(2:end-1); 
 
-% Normaliza a magnitude para que o valor máximo seja unitário 
+% Normaliza a magnitude, valor máximo unitário 
 max_P1 = max(P1);
-if max_P1 > 0
-	yh2 = P1 / max_P1;
-else
-	yh2 = P1; % Evita divisão por zero se o sinal for nulo
-end
+yh2 = P1 / max_P1;
 %************************************************************
 % Atualiza o gráfico do espectro
 refreshdata(h2, 'caller');
