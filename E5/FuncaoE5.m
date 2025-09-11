@@ -1,19 +1,5 @@
-% Aplicacoes de Processamento Digital de Sinais - 4456S-04
-% Experi�ncia E5: Conversao D/A
-% Prof. Denis Fernandes 
-% Ultima atualizacao: 11/04/2019
-
 function [y] = FuncaoE5(x)
-
-%********************************************
-
-y = x;
-
-%********************************************
-
+% Item b.1) Retificador de Onda Completa
+% A função abs() do MATLAB calcula o módulo (valor absoluto) do sinal.
+y = abs(x);
 end
-
-
-
-
-
