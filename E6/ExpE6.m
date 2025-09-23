@@ -1,25 +1,25 @@
 % Aplicacoes de Processamento Digital de Sinais - 4456S-04
-% Experiência E6: Conversão de taxas de amostragem
+% Experiï¿½ncia E6: Conversï¿½o de taxas de amostragem
 % Prof. Denis Fernandes 
 % Ultima atualizacao: 28/04/2020
 
 close all; % fecha todas as figuras
-clear;     % limpa variáveis do workspace
+clear;     % limpa variï¿½veis do workspace
 clc;       % limpa janela de comandos
 
 % global ARec APly;
 
 TT = 10.0;    % tempo total de aquisicao em segundos
 
-FA_AD = 8000; % frequencia de amostragem do A/D (tipicas 8000, 11025, 22050, 44100, 48000, and 96000)
-FA_DA = 8000; % frequencia de amostragem do D/A (tipicas 8000, 11025, 22050, 44100, 48000, and 96000)
+FA_AD = 32000; % frequencia de amostragem do A/D (tipicas 8000, 11025, 22050, 44100, 48000, and 96000)
+FA_DA = 48000; % frequencia de amostragem do D/A (tipicas 8000, 11025, 22050, 44100, 48000, and 96000)
 CH_AD = 1;    % 1 mono, 2 estereo
 
 NSAMPLES_AD = FA_AD/25; % bloco de amostras por aquisicao do A/D.
 NSAMPLES_DA = FA_DA/25; % bloco de amostras para reproducao no D/A.
 
-NFILT = 10;            % ordem do filtro utilizado na FuncaoE6
-zi = zeros([1 NFILT]); % condições iniciais para o filtro da FuncaoE6
+NFILT = 60;            % ordem do filtro utilizado na FuncaoE6
+zi = zeros([1 NFILT]); % condiï¿½ï¿½es iniciais para o filtro da FuncaoE6
 
 % plota oscilograma do sinal de entrada
 subplot(221);
@@ -42,7 +42,7 @@ xh2 = xh2*FA_AD/2/length(xh2);
 h2 = plot(xh2,yh2); hold off; grid on;
 axis([xh2(1) FA_AD/2 -0.1 1.1])
 xlabel('Frequencia (Hz)'), ylabel('Magnitude (norm.)'),
-title('Audio In - Espectro de Frequências');
+title('Audio In - Espectro de Frequï¿½ncias');
 set(h2,'YDataSource','yh2');
 set(h2,'XDataSource','xh2');
 
@@ -67,7 +67,7 @@ xh4 = xh4*FA_DA/2/length(xh4);
 h4 = plot(xh4,yh4); hold off; grid on;
 axis([xh4(1) FA_DA/2 -0.1 1.1])
 xlabel('Frequencia (Hz)'), ylabel('Magnitude (norm.)'),
-title('Audio Out - Espectro de Frequências');
+title('Audio Out - Espectro de Frequï¿½ncias');
 set(h4,'YDataSource','yh4');
 set(h4,'XDataSource','xh4');
 
@@ -125,9 +125,9 @@ while(toc < TT),
 end;
 fprintf('End recording.\n');
 
-release(ARec); % fecha dispositivo de entrada de áudio
+release(ARec); % fecha dispositivo de entrada de ï¿½udio
 clear ARec % remove ARec do workspace
-release(APly); % fecha dispositivo de saída de áudio
+release(APly); % fecha dispositivo de saï¿½da de ï¿½udio
 clear APly % remove APly do workspace
 
 % close all; % fecha todas as figuras
