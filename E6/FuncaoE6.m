@@ -1,6 +1,5 @@
 % Aplicacoes de Processamento Digital de Sinais - 4456S-04
 % Experiência E6: Conversão de taxas de amostragem
-% ARQUIVO DE FUNÇÃO MODIFICADO
 
 function [y, zf] = FuncaoE6(x, fa_AD, fa_DA, zi)
 % x - sinal a ser filtrado com taxa fa_AD
