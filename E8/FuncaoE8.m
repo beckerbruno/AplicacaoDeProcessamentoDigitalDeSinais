@@ -22,7 +22,7 @@ end
 
 
 function [y, zo] = FuncaoE8(x, b, a, zi)
-% IMPLEMENTAÇÃO MANUAL DA FORMA DIRETA II PARA O ITEM (C) [cite: 130]
+% IMPLEMENTAÇÃO MANUAL DA FORMA DIRETA II PARA O ITEM (C)
 
     % Garante que os vetores de estado e coeficientes sejam linhas
     zi = zi(:)';
